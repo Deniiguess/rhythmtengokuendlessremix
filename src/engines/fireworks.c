@@ -9,6 +9,7 @@
 
 // For readability.
 #define gFireworks ((struct FireworksEngineData *)gCurrentEngineData)
+volatile u8 *miss_FW = (volatile u8 *)0x030002A4;
 
 enum SpiritSparklerStatesEnum {
     SPIRIT_SPARKLER_STATE_0,
@@ -408,6 +409,22 @@ void fireworks_cue_spawn(struct Cue *cue, struct FireworksCue *info, u32 type) {
                 gFireworks->patternTableNext++;
             }
             break;
+        case FIREWORKS_CUE_2_TABLE:
+            info->pattern = fireworks_cue_2_sequence[gFireworks->patternTableNext];
+            gFireworks->patternTableNext++;
+            break;
+        case FIREWORKS_CUE_3_TABLE:
+            info->pattern = fireworks_cue_3_sequence[gFireworks->patternTableNext];
+            gFireworks->patternTableNext++;
+            break;
+        case FIREWORKS_CUE_4_TABLE:
+            info->pattern = fireworks_cue_4_sequence[gFireworks->patternTableNext];
+            gFireworks->patternTableNext++;
+            break;
+        case FIREWORKS_CUE_5_TABLE:
+            info->pattern = fireworks_cue_5_sequence[gFireworks->patternTableNext];
+            gFireworks->patternTableNext++;
+            break;
 
         default: // Use pattern set by ENGINE Func_02
             info->pattern = gFireworks->patternDefault;
@@ -629,12 +646,14 @@ void fireworks_cue_barely(struct Cue *cue, struct FireworksCue *info, u32 presse
     }
 
     beatscript_enable_loops();
+    if (*miss_FW == 0) *miss_FW = 1;
 }
 
 
 // Cue - Miss
 void fireworks_cue_miss(struct Cue *cue, struct FireworksCue *info) {
     beatscript_enable_loops();
+    if (*miss_FW == 0) *miss_FW = 1;
 }
 
 

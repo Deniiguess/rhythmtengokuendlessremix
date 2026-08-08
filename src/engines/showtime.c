@@ -11,6 +11,7 @@ asm(".include \"include/gba.inc\""); // Temporary
 
 // For readability.
 #define gShowtime ((struct ShowtimeEngineData *)gCurrentEngineData)
+volatile u8 *miss_ST = (volatile u8 *)0x030002A4;
 
 
 /* SHOWTIME */
@@ -53,7 +54,7 @@ void showtime_engine_start(u32 version) {
     textAnim = bmp_font_obj_print_c(gShowtime->unk0, D_0805a3cc, 0, 0);
     gShowtime->unk4 = sprite_create(gSpriteHandler, textAnim->frames, 0, 120, 56, 0, 0, 0, 0);
     gameplay_set_input_buttons(A_BUTTON, 0);
-    func_0802c23c();    
+    func_0802c23c();
     func_0802d104();
     func_0802c40c();
     func_0802d394();
@@ -171,7 +172,10 @@ void showtime_cue_hit(struct Cue *cue, struct ShowtimeCue *info, u32 pressed, u3
 
 #include "asm/engines/showtime/asm_0802bf88.s"
 
-#include "asm/engines/showtime/asm_0802c078.s"
+void showtime_cue_miss(struct Cue *cue, struct ShowtimeCue *info) {
+    beatscript_enable_loops();
+    if (*miss_ST == 0) *miss_ST = 1;
+}
 
 
 void showtime_input_event(u32 pressed, u32 released) {

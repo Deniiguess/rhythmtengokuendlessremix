@@ -1,6 +1,6 @@
 # Rhythm Tengoku
 
-This is a decompilation of Rhythm Tengoku for the Gameboy Advance. It can build either a fully byte-for-byte matching ROM from scratch, or rebuild a different functionally equivalent ROM with a different memory layout to be easier to mod with. This can be controlled with the `NONMATCHING` parameter when building.
+This is a decompilation of Rhythm Tengoku for the Gameboy Advance. It can build either a fully byte-for-byte matching ROM from scratch, or rebuild a different functionally equivalent ROM with a different a layout to be easier to mod with. This can be controlled with the `NONMATCHING` parameter when building.
 
 This repository requires an unmodified ROM of Rhythm Tengoku (rev. 0) to build. This ROM will not be provided for you.
 

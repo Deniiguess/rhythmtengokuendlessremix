@@ -4,6 +4,7 @@
 
 /* Game Text - Karate Man */
 
+const char ER_Start[] = "Ｄｏｎ｀ｔ　Ｍｉｓｓ！";
 
 const char D_0805ab50[] = "きほんが　できてない。";
 

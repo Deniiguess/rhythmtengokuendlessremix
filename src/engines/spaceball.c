@@ -10,6 +10,7 @@ extern s32 (*fast_udivsi3)(s32, s32);
 
 // For readability.
 #define gSpaceball ((struct SpaceballEngineData *)gCurrentEngineData)
+volatile u8 *miss_SpB = (volatile u8 *)0x030002A4;
 
 
 /* SPACEBALL */
@@ -336,6 +337,7 @@ u32 spaceball_cue_update_launch(struct Cue *cue, struct SpaceballCue *cueInfo, u
         affine_sprite_set_anim_cel(gSpaceball->poofL.sprite, 0);
         affine_sprite_set_visible(gSpaceball->poofL.sprite, TRUE);
         if (!cueInfo->missed) {
+        		if (*miss_SpB == 0) *miss_SpB = 1;
             gameplay_add_cue_result(gameplay_get_cue_marking_criteria(cue), 2, 0);
         }
         return TRUE;
@@ -429,6 +431,7 @@ void spaceball_cue_barely(struct Cue *cue, struct SpaceballCue *cueInfo, u32 pre
     cueInfo->y = INT_TO_FIXED(cueInfo->y);
     cueInfo->ySpeed = INT_TO_FIXED(-4);
     cueInfo->state = SPACEBALL_CUE_STATE_BARELY;
+    if (*miss_SpB == 0) *miss_SpB = 1;
 }
 
 
@@ -436,6 +439,7 @@ void spaceball_cue_barely(struct Cue *cue, struct SpaceballCue *cueInfo, u32 pre
 void spaceball_cue_miss(struct Cue *cue, struct SpaceballCue *cueInfo) {
     gSpaceball->totalMissed++;
     cueInfo->missed = TRUE;
+    if (*miss_SpB == 0) *miss_SpB = 1;
 }
 
 

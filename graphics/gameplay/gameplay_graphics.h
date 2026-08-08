@@ -14,6 +14,7 @@ extern struct Animation anim_gameplay_text_button_white[];
 extern struct Animation anim_gameplay_perfect_icon[];
 extern struct Animation anim_gameplay_perfect_miss[];
 extern struct Animation anim_gameplay_perfect_hit[];
+extern struct Animation miss_anim[];
 
 /* GAMEPLAY - COMPRESSED GRAPHICS */
 

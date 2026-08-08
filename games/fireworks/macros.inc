@@ -19,6 +19,10 @@
     .set PATTERN_MODE_1,            1
     .set PATTERN_MODE_TAIKO_BOMBER, 2
     .set PATTERN_MODE_USE_TABLE,    3
+    .set FIREWORKS_CUE_2_TABLE,    4
+    .set FIREWORKS_CUE_3_TABLE,    5
+    .set FIREWORKS_CUE_4_TABLE,    6
+    .set FIREWORKS_CUE_5_TABLE,    7
     .set PATTERN_MODE_USE_DEFAULT,  99
 
     @ [Event 0x01] Sound Effects

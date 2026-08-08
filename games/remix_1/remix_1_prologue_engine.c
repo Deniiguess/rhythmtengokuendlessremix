@@ -1,7 +1,7 @@
 #include "prologues/remix_1.h"
 
 
-  //  //  //  GAME ENGINE DATA  //  //  //
+//  //  //  GAME ENGINE DATA  //  //  //
 
 
 // [D_089ebcac] Buffered Textures List
@@ -27,12 +27,12 @@ struct GraphicsTable remix_1_prologue_gfx_table[] = {
         /* Size  */ COMPRESSED_GFX_SOURCE
     },
     /* BG Palette */ {
-        /* Src.  */ remix_1_prologue_bg_pal,
+        /* Src.  */ remix_1_prologue_pal_pal,
         /* Dest. */ BG_PALETTE_BUFFER(0),
         /* Size  */ 0x140
     },
     /* OBJ Palette */ {
-        /* Src.  */ remix_1_prologue_obj_pal,
+        /* Src.  */ remix_1_prologue_pal_pal,
         /* Dest. */ OBJ_PALETTE_BUFFER(0),
         /* Size  */ 0x140
     },

@@ -9,6 +9,7 @@
 
 // For readability.
 #define gSneakySpirits ((struct SneakySpiritsEngineData *)gCurrentEngineData)
+volatile u8 *miss_SS = (volatile u8 *)0x030002A4;
 
 
 /* SNEAKY SPIRITS */
@@ -399,6 +400,7 @@ void sneaky_spirits_cue_barely(struct Cue *cue, struct SneakySpiritsCue *info, u
         sprite_create(gSpriteHandler, anim_sneaky_spirit_scared_late, 0, 122, 94, 0x8792, 1, 0, 3);
     }
     play_sound(&s_ghost_miss_hit_seqData);
+    if (*miss_SS == 0) *miss_SS = 1;
 }
 
 
@@ -412,6 +414,7 @@ void sneaky_spirits_cue_miss(struct Cue *cue, struct SneakySpiritsCue *info) {
     }
 
     play_sound(&s_ghost_dash_seqData);
+    if (*miss_SS == 0) *miss_SS = 1;
 }
 
 
@@ -424,6 +427,7 @@ void sneaky_spirits_input_event(u32 pressed, u32 released) {
     sprite_set_anim(gSpriteHandler, gSneakySpirits->bow, anim_sneaky_spirits_bow_shoot, 0, 1, 0x7f, 0);
     sprite_create(gSpriteHandler, anim_sneaky_spirits_arrow_miss, 0, 70, 58, 0x8792, 1, 0x7f, 3);
     play_sound(&s_ghost_gosha_seqData);
+    if (*miss_SS == 0) *miss_SS = 1;
 }
 
 

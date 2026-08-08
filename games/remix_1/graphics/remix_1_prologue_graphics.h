@@ -15,5 +15,5 @@ extern struct CompressedData remix_1_prologue_obj;
 
 /* PROLOGUE (REMIX 1) - PALETTES */
 
-extern Palette remix_1_prologue_obj_pal[];
-extern Palette remix_1_prologue_bg_pal[];
+extern Palette remix_1_prologue_pal_pal[];
+extern Palette remix_1_prologue_pal_pal[];

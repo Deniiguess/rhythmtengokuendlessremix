@@ -649,17 +649,14 @@ struct LevelData level_data_table[] = {
     },
     /* REMIX_1 */ {
         /* Entry Scene   */ &scene_remix_1,
-        /* Level Name    */ "リミックス １",
-        /* Level Desc.   */ "キミの実力を\n"
-                            "試してみてみる？\n"
-                            "これまでの経験が\n"
-                            "モノを言うヨ～！",
+        /* Level Name    */ "エンドレスリミックス",
+        /* Level Desc.   */ "endless.",
         /* Level Icon    */ 22,
         /* Level Type    */ LEVEL_TYPE_REMIX,
         /* Epilogue GFX  */ epilogue_remix1_gfx_tables,
         /* Epilogue Text */ {
             /* TRY_AGAIN */ "今回のデキ ： 猫のおやつクラス",
-            /* OK        */ "今回のデキ ： 朝食クラス",
+            /* OK        */ "ｉｄｋ ｙｏｕｒ ｓｃｏｒｅ",
             /* SUPERB    */ "今回のデキ ： なんと、 ディナークラス！！"
         }
     },

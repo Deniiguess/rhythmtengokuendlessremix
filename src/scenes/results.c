@@ -788,10 +788,10 @@ s24_8 results_get_positive_comments(void) {
 
 // [D_089d7b40] Rank Comment Pool (OK)
 const char *results_ok_comment_pool[] = {
-    "よしと　します。",
-    "とりあえず．．．",
-    "まぁまぁ、　かな。",
-    "う～ん．．．"
+    "Ｈａｖｅ ａｎ ＯＫ．",
+    "Ｈａｖｅ ａｎ ＯＫ．",
+    "Ｈａｖｅ ａｎ ＯＫ．",
+    "Ｈａｖｅ ａｎ ＯＫ．"
 };
 
 

@@ -3,6 +3,7 @@
 
 // For readability.
 #define gBouncyRoad ((struct BouncyRoadEngineData *)gCurrentEngineData)
+volatile u8 *miss_BR = (volatile u8 *)0x030002A4;
 
 enum BouncyBallState {
     /* 00 */ BOUNCY_BALL_STATE_DEFAULT,
@@ -519,6 +520,7 @@ void bouncy_road_cue_miss(struct Cue *cue, struct BouncyRoadCue *info) {
         bouncy_road_play_bounce_sfx(0);
     }
     ball->missed = TRUE;
+    if (*miss_BR == 0) *miss_BR = 1;
 }
 
 

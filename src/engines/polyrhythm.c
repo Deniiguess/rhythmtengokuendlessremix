@@ -11,6 +11,7 @@ asm(".include \"include/gba.inc\""); // Temporary
 
 // For readability.
 #define gPolyrhythm ((struct PolyrhythmEngineData *)gCurrentEngineData)
+volatile u8 *miss_PR = (volatile u8 *)0x030002A4;
 
 enum BlockTypesEnum {
     BLOCK_TYPE_PLATFORM,
@@ -454,6 +455,7 @@ void polyrhythm_update_rods(void) {
             }
 
             if (rod->stopped) {
+            if (*miss_PR == 0) *miss_PR = 1;
                 rod->timeUntilExplosion--;
                 if (rod->timeUntilExplosion == 0) {
                     x = sprite_get_data(gSpriteHandler, rod->sprite, 4);

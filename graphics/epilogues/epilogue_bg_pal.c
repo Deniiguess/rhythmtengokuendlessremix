@@ -2585,7 +2585,7 @@ Palette epilogue_rat_race_bg_pal[] = {
 Palette epilogue_remix1_bg_pal[] = {
     /* PALETTE 00 */ {
         /* 00 */ TO_RGB555(0x000000),
-        /* 01 */ TO_RGB555(0x080808),
+        /* 01 */ TO_RGB555(0xF8F8F8),
         /* 02 */ TO_RGB555(0x585858),
         /* 03 */ TO_RGB555(0x909090),
         /* 04 */ TO_RGB555(0xC0C0C0),

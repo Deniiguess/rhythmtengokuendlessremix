@@ -9,6 +9,7 @@ asm(".include \"include/gba.inc\""); // Temporary
 
 // For readability.
 #define gRhythmTweezers ((struct RhythmTweezersEngineData *)gCurrentEngineData)
+volatile u8 *miss_RT = (volatile u8 *)0x030002A4;
 
 
 /* RHYTHM TWEEZERS */
@@ -469,12 +470,15 @@ void rhythm_tweezers_cue_barely_short(struct Cue *cue, struct RhythmTweezersCue 
 
     gRhythmTweezers->existingHairs.full -= 1;
     gRhythmTweezers->existingHairs.half += 1;
+
+    if (*miss_RT == 0) *miss_RT = 1;
 }
 
 
 // [func_0802f330] Cue - Miss
 void rhythm_tweezers_cue_miss(struct Cue *cue, struct RhythmTweezersCue *info) {
     beatscript_enable_loops();
+    if (*miss_RT == 0) *miss_RT = 1;
 }
 
 

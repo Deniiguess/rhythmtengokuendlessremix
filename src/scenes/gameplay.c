@@ -7,6 +7,7 @@ asm(".include \"include/gba.inc\"");//Temporary
 
 // For readability.
 #define gGameplay ((struct GameplaySceneData *)gCurrentSceneData)
+volatile u8 *hasMissedER = (volatile u8 *)0x030002A4;
 
 #define PAUSE_MENU_PALETTE_MOD 0x3DEF3DEF // Equivalent to RGB #7F7F7F
 
@@ -196,6 +197,13 @@ void gameplay_update_scene(void) {
             gameplay_skip_tutorial(); // Skip Tutorial
         }
     }
+
+    if (*hasMissedER == 1 ) {
+    	play_sound(&s_f_fail_perfect_seqData);
+     	sprite_set_visible(gSpriteHandler, gGameplay->ERMiss, TRUE);
+      sprite_set_anim(gSpriteHandler, gGameplay->ERMiss, miss_anim, 0, 1, 0x7f, 0);
+      *hasMissedER = 2;
+	}
 }
 
 
@@ -260,7 +268,7 @@ void gameplay_set_current_engine(const struct GameEngine *engine, u32 version) {
         gGameplay->gameEngineData = NULL;
     }
     gCurrentEngineData = gGameplay->gameEngineData;
-    
+
     for (i = 0; i < 12; i++) {
         gGameplay->cueDefinitions[i] = NULL;
     }
@@ -1188,6 +1196,7 @@ void gameplay_init_overlay(void) {
     gGameplay->skipTutorialSprite = sprite_create(gSpriteHandler, anim_gameplay_skip_icon, 0, 120, 80, 0, 0, 0, 0x8000);
     gGameplay->aButtonSprite = sprite_create(gSpriteHandler, anim_gameplay_text_button_black, 0, 64, 64, 0x64, 1, 0, 0x8000);
     gGameplay->perfectSprite = sprite_create(gSpriteHandler, anim_gameplay_perfect_icon, 0, 230, 10, 0x5A, 1, 0x7f, 0x8000);
+    gGameplay->ERMiss = sprite_create(gSpriteHandler, miss_anim, 0, 120, 80, 0, 0, 0, 0x8000);
     sprite_set_paused(gSpriteHandler, gGameplay->pauseSprite, 1);
     sprite_set_paused(gSpriteHandler, gGameplay->pauseOptionsSprite, 1);
     sprite_id_set_base_tile(gSpriteHandler, 16, 960);

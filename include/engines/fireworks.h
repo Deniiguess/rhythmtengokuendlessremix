@@ -42,7 +42,11 @@ enum FireworksPatternModesEnum {
     FIREWORKS_PATTERN_MODE_0,
     FIREWORKS_PATTERN_MODE_1,
     FIREWORKS_PATTERN_MODE_TAIKO_BOMBER,
-    FIREWORKS_PATTERN_MODE_USE_TABLE
+    FIREWORKS_PATTERN_MODE_USE_TABLE,
+    FIREWORKS_CUE_2_TABLE,
+    FIREWORKS_CUE_3_TABLE,
+    FIREWORKS_CUE_4_TABLE,
+    FIREWORKS_CUE_5_TABLE
 };
 
 enum FireworksCueTypesEnum {
@@ -115,6 +119,10 @@ extern const struct FireworksPatternColours fireworks_particle_combinations[];
 extern const s32 fireworks_particle_durations[];
 extern const struct FireworksParticleTrajectory fireworks_mars_pattern[];
 extern const s32 fireworks_1_pattern_sequence[];
+extern const s32 fireworks_cue_2_sequence[];
+extern const s32 fireworks_cue_3_sequence[];
+extern const s32 fireworks_cue_4_sequence[];
+extern const s32 fireworks_cue_5_sequence[];
 
 
 // Engine Definition Data:

@@ -10,6 +10,7 @@
 
 // For readability.
 #define gKarateMan ((struct KarateManEngineData *)gCurrentEngineData)
+volatile u8 *ptr = (volatile u8 *)0x030002A4;
 
 
 /* KARATE MAN */
@@ -36,7 +37,7 @@ void karate_init_gfx2(void) {
 // GFX_INIT Func_00
 void karate_init_gfx1(void) {
     u32 temp;
-    
+
     func_0800c604(0);
     temp = start_new_texture_loader(get_current_mem_id(), karate_buffered_textures);
     run_func_after_task(temp, karate_init_gfx2, 0);
@@ -155,7 +156,7 @@ void karate_common_init_tutorial(struct Scene *scene) {
     } else {
         gameplay_enable_tutorial(FALSE);
         gameplay_set_skip_icon(0, FALSE);
-    } 
+    }
 }
 
 
@@ -365,7 +366,7 @@ u32 karate_cue_update(struct Cue *cue, struct KarateManCue *data, u32 runningTim
 }
 
 
-// CUE - Despawn 
+// CUE - Despawn
 void karate_cue_despawn(struct Cue *cue, struct KarateManCue *data) {
     sprite_delete(gSpriteHandler, data->sprite);
     sprite_delete(gSpriteHandler, data->shadow);
@@ -423,7 +424,7 @@ void karate_cue_hit(struct Cue *cue, struct KarateManCue *data) {
     if (gKarateMan->seriousModeStopped) {
         karate_stop_serious_mode();
     }
-    
+
     // Check if Flow is more than 2 or if Version is 2 ("Serious Mode")
     if (gKarateMan->flowLevel > 2) {
         isHigh = TRUE;
@@ -437,7 +438,7 @@ void karate_cue_hit(struct Cue *cue, struct KarateManCue *data) {
         // Low Flow
         switch (data->type) {
             case 1:
-            case 3: // Rock, Bomb 
+            case 3: // Rock, Bomb
                 data->unk18 = 0;
                 data->unk1C = 0;
                 data->unk24 = 0x20;
@@ -541,12 +542,15 @@ void karate_cue_barely(struct Cue *cue, struct KarateManCue *data) {
         karate_set_bg_face(2, 0x30);
     }
     beatscript_enable_loops();
+
+    if (*ptr == 0) *ptr = 1;
 }
 
 
 // CUE - Miss
 void karate_cue_miss(struct Cue *cue, struct KarateManCue *data) {
 	beatscript_enable_loops();
+	if (*ptr == 0) *ptr = 1;
 }
 
 
@@ -599,7 +603,7 @@ void karate_common_beat_animation(void) {
     struct KarateJoe *joe = &karateMan->joe;
     u32 temp;
     s8 currentEntity;
-    
+
     karate_update_bg_palette();
     if ((s16)karateMan->joe.isNotBeat == 1) {
         temp = (u32)sprite_get_data(gSpriteHandler, joe->sprite, 2); // should be u16?
@@ -696,13 +700,13 @@ void karate_decrement_flow(void) {
 }
 
 
-// SUB - Update BG Palette 
+// SUB - Update BG Palette
 void karate_update_bg_palette(void) {
     s8 paletteID;  // BG Palette Table byte
     u8 bg;         // Current BG
     u16 *palette4, *newPalette;
     u32 i;
-    
+
     if (gKarateMan->version != KARATE_VER_SERIOUS) { // Don't update if in "Serious Mode"
         bg = gKarateMan->bg;
         paletteID = gKarateMan->bgPalIndex[bg];
