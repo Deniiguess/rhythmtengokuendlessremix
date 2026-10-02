@@ -37,7 +37,6 @@ script script_remix_1_entry
     rest 24
     call script_remix_1_prologue
     set_game_fade_in_time 16
-    enable_play_inputs
     goto script_remix_1_main
 
 define_gameplay_scene scene_remix_1, script_remix_1_entry
@@ -140,9 +139,9 @@ script script_remix_1_main
     karate_man_print_textbox ER_Start
     rest_beats 8
     karate_man_clear_textbox
+    enable_play_inputs
     set_byte 0x030002AC, 3
     set_byte 0x030002A4, 0
-    rest_beats 999
     call karate_man_cue_1
 
     call change_scene
@@ -164,7 +163,7 @@ return
 script change_scene
 	if_eq INT8, 0x030002A4, 0
 
-	switch_random 19
+	switch_random 18
 				case 0
        	if_eq INT8, 0x030002AC, 0
        		goto change_scene
@@ -306,7 +305,7 @@ script change_scene
          		goto change_scene
          	end_if
 					load_samurai_slice_remix
-					set_byte 0x030002AC, 14
+					set_byte 0x030002AC, 15
 					rest 12
         	goto samurai_slice_cue
 				break
@@ -319,22 +318,12 @@ script change_scene
          	rest 12
         	goto ninja_bodyguard_init
 				break
-				case 17
-					if_eq INT8, 0x030002AC, 17
-         		goto change_scene
-         	end_if
-        	load_rat_race
-         	disable_play_inputs
-         	set_byte 0x030002AC, 17
-         	rest 12
-        	goto rat_race_cue
-        break
-        case 18
-        	if_eq INT8, 0x030002AC, 18
+        case 17
+        	if_eq INT8, 0x030002AC, 17
          		goto change_scene
          	end_if
         	load_toss_boys
-         	set_byte 0x030002AC, 18
+         	set_byte 0x030002AC, 17
          	rest 12
         	goto toss_boys_init
         break
@@ -2929,95 +2918,6 @@ script ninja_bodyguard_cue_4
   rest 12
   rest 12
   rest 24
-return
-
-script rat_race_cue
-	beat_anim
-  rest 24
-  beat_anim
-  rest 24
-  beat_anim
-  rest 24
-	rat_race_event12
-  rat_race_event09 1
-  spawn_cue CUE_STOP4
-  rest 24
-  enable_play_inputs
-  rat_race_event0D 0
-  rest 24
-  rat_race_event0D 1
-  rat_race_event05 1
-  beat_anim
-  rest 24
-  rat_race_event0D 2
-  rat_race_event05 2
-  rest 12
-  rest 4
-  rest 4
-  rat_race_event05 3
-  rest 4
-  rat_race_event05 4
-  rat_race_event0D 3
-  rat_race_event02 0
-  rat_race_event01 0
-  rest 24
-  beat_anim
-  rest 24
-  beat_anim
-  rest 24
-  beat_anim
-  rest 24
-  beat_anim
-  switch_random 2
-  case 0
-  	rest 24
-	  beat_anim
-	  rat_race_event0D 0
-	  rest 24
-	  rat_race_event0D 1
-	  rest 12
-	  rest 6
-	  rat_race_event05 5
-	  rest 6
-	  rat_race_event0D 2
-	  rat_race_event01 2
-	  spawn_cue CUE_DASH
-	  rest 12
-	  rest 6
-	  rat_race_event05 6
-	  rest 6
-	  rat_race_event05 0
-	  rat_race_event0D 4
-	  rat_race_event01 1
-	  rat_race_event02 1
-	  beat_anim
-	  rest 12
-  	break
-  case 1
-	  rat_race_event0D 0
-	  rest 24
-	  rat_race_event0D 1
-	  rest 12
-	  rest 6
-	  rat_race_event05 5
-	  rest 6
-	  rat_race_event0D 2
-	  rat_race_event01 2
-	  spawn_cue CUE_DASH
-	  rest 12
-	  rest 6
-	  rat_race_event05 6
-	  rest 6
-	  rat_race_event05 0
-	  rat_race_event0D 4
-	  rat_race_event01 1
-	  rat_race_event02 1
-	  beat_anim
-	  rest 24
-	  beat_anim
-		rest 12
-  	break
-  end_switch
 return
 
 script toss_boys_cue_1

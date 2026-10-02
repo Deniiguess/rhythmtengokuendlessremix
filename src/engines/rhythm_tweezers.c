@@ -10,6 +10,7 @@ asm(".include \"include/gba.inc\""); // Temporary
 // For readability.
 #define gRhythmTweezers ((struct RhythmTweezersEngineData *)gCurrentEngineData)
 volatile u8 *miss_RT = (volatile u8 *)0x030002A4;
+volatile u8 *score1RT = (volatile u8 *)0x030002AA;
 
 
 /* RHYTHM TWEEZERS */
@@ -430,6 +431,9 @@ void rhythm_tweezers_cue_hit_short(struct Cue *cue, struct RhythmTweezersCue *in
         sprite_set_playback(gSpriteHandler, vegetable->spriteCurrent, 0, 0, 0);
         sprite_set_anim_cel(gSpriteHandler, vegetable->spriteCurrent, 2);
     }
+    if (*miss_RT == 0) {
+        *score1RT += 1;
+    }
 }
 
 
@@ -452,6 +456,10 @@ void rhythm_tweezers_cue_hit_long(struct Cue *cue, struct RhythmTweezersCue *inf
 
     stop_sound(&s_f_hair_nuki_long_seqData);
     play_sound(&s_f_hair_tuneru_seqData);
+
+    if (*miss_RT == 0) {
+        *score1RT += 1;
+    }
 }
 
 

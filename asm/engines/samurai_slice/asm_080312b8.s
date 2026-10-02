@@ -3,6 +3,15 @@ asm(".syntax unified \n\
 .balign 4, 0 \n\
 \n\
 thumb_func_start samurai_slice_cue_hit \n\
+LDR R2, =0x030002A4 \n\
+LDR R0, [R2] \n\
+CMP R0, 0x00 \n\
+BNE dont_inc_point \n\
+LDR R2, =0x030002AA \n\
+LDRB R0, [R2] \n\
+ADDS R0, 0x01 \n\
+STRB R0, [R2] \n\
+dont_inc_point: \n\
 /* 080312b8 */ PUSH {R4-R6, LR} \n\
 /* 080312ba */ LDR R0, =gCurrentEngineData \n\
 /* 080312bc */ LDR R2, [R0] \n\

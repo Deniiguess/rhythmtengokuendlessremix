@@ -5,6 +5,8 @@ asm(".include \"include/gba.inc\""); // Temporary
 // For readability.
 #define gMarchingOrders ((struct MarchingOrdersEngineData *)gCurrentEngineData)
 volatile u8 *miss_MO = (volatile u8 *)0x030002A4;
+volatile u8 *score1MO = (volatile u8 *)0x030002AA;
+volatile u8 *scorePalTimerMO = (volatile u8 *)0x030002AB;
 
 enum CommanderStatesEnum {
     COMMANDER_STATE_IDLE,
@@ -281,12 +283,20 @@ void marching_cue_hit(struct Cue *cue, struct MarchingOrdersCue *info, u32 press
             }
             break;
     }
+    if (*miss_MO == 0) {
+        *score1MO += 1;
+    }
 }
 
 // Cue - Barely
 void marching_cue_barely(struct Cue *cue, struct MarchingOrdersCue *info, u32 pressed, u32 released) {
     marching_cue_hit(cue, info, pressed, released);
     marching_set_commander_action(COMMANDER_STATE_ANNOYED);
+
+    if (*miss_MO == 0) {
+    *scorePalTimerMO = 11;
+    *score1MO -= 1;
+    }
 }
 
 // Cue - Miss

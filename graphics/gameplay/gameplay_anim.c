@@ -111,17 +111,17 @@ struct Animation anim_gameplay_perfect_hit[] = {
     /* 007 */ END_ANIMATION,
 };
 
-struct Animation miss_anim[] = {
-    /* 000 */ { miss_1, 2 },
-    /* 000 */ { miss_2, 2 },
-    /* 000 */ { miss_3, 2 },
-    /* 000 */ { miss_4, 2 },
-    /* 000 */ { miss_5, 2 },
-    /* 000 */ { miss_6, 2 },
-    /* 000 */ { miss_1, 2 },
-    /* 000 */ { miss_2, 2 },
-    /* 000 */ { miss_3, 2 },
-    /* 000 */ { miss, 10 },
-    /* 001 */ END_ANIMATION,
+struct Animation anim_gameplay_numbers[] = {
+    /* 000 */ { number_0, 1 },
+    /* 001 */ { number_1, 1 },
+    /* 002 */ { number_2, 1 },
+    /* 003 */ { number_3, 1 },
+    /* 004 */ { number_4, 1 },
+    /* 005 */ { number_5, 1 },
+    /* 006 */ { number_6, 1 },
+    /* 007 */ { number_7, 1 },
+    /* 008 */ { number_8, 1 },
+    /* 009 */ { number_9, 1 },
+    /* 010 */ END_ANIMATION,
 };
 

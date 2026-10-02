@@ -142,6 +142,15 @@ branch_0802f012: \n\
 /* 0802f084 */ BL stop_sound \n\
 /* 0802f088 */ LDR R0, =s_f_hair_nuki_long_seqData \n\
 /* 0802f08a */ BL play_sound \n\
+LDR R1, =0x030002A4 \n\
+LDR R3, [R1] \n\
+CMP R3, 0x00 \n\
+BNE dont_inc_point \n\
+LDR R1, =0x030002AA \n\
+LDRB R3, [R1] \n\
+ADDS R3, 0x01 \n\
+STRB R3, [R1] \n\
+dont_inc_point: \n\
 /* 0802f08e */ LDR R3, =gCurrentEngineData \n\
 /* 0802f090 */ LDR R1, [R3] \n\
 /* 0802f092 */ ADDS R1, 0x88 @ Add 0x88 to R1 \n\
@@ -210,6 +219,13 @@ branch_0802f0c4: \n\
 /* 0802f120 */ LDRH R0, [R1] \n\
 /* 0802f122 */ ADDS R0, 0x1 @ Add 0x1 to R0 \n\
 /* 0802f124 */ STRH R0, [R1] \n\
+LDR R3, =0x030002A4 \n\
+LDR R0, [R3] \n\
+CMP R0, 0x00 \n\
+BNE dont_set_fail_check \n\
+MOVS R0, 0x01 \n\
+STR R0, [R3] \n\
+dont_set_fail_check: \n\
  \n\
 branch_0802f126: \n\
 /* 0802f126 */ MOVS R0, 0x0 @ Set R0 to 0x0 \n\

@@ -12,6 +12,7 @@ asm(".include \"include/gba.inc\""); // Temporary
 // For readability.
 #define gShowtime ((struct ShowtimeEngineData *)gCurrentEngineData)
 volatile u8 *miss_ST = (volatile u8 *)0x030002A4;
+volatile u8 *score1ST = (volatile u8 *)0x030002AA;
 
 
 /* SHOWTIME */
@@ -167,6 +168,10 @@ void showtime_cue_hit(struct Cue *cue, struct ShowtimeCue *info, u32 pressed, u3
     func_0802d81c(info->unk4);
     func_0802d2bc();
     gShowtime->unk3C0 = ticks_to_frames(0x14);
+
+    if (*miss_ST == 0) {
+        *score1ST += 1;
+    }
 }
 
 

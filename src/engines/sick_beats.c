@@ -13,6 +13,8 @@ asm(".include \"include/gba.inc\""); // Temporary
 // For readability.
 #define gSickBeats ((struct SickBeatsEngineData *)gCurrentEngineData)
 volatile u8 *miss_SB = (volatile u8 *)0x030002A4;
+volatile u8 *score1SB = (volatile u8 *)0x030002AA;
+volatile u8 *scorePalTimerSB = (volatile u8 *)0x030002AB;
 
 
 /* SICK BEATS */
@@ -778,6 +780,10 @@ void sick_beats_cue_hit(struct Cue *cue, struct SickBeatsCue *info, u32 pressed,
             sick_beats_process_x_particles(5);
         }
     }
+
+    if (*miss_SB == 0) {
+        *score1SB += 1;
+    }
 }
 
 // Cue - Barely
@@ -785,6 +791,9 @@ void sick_beats_cue_barely(struct Cue *cue, struct SickBeatsCue *info, u32 press
     if (sick_beats_process_cue(info, (gameplay_get_last_hit_offset() < 0) ? anim_fork_hit_early : anim_fork_hit_late, &s_f_virus_osii_seqData)) {
         sick_beats_add_score(1);
         sick_beats_process_x_particles(2);
+    }
+    if (*miss_SB == 0) {
+        *scorePalTimerSB = 11;
     }
 }
 

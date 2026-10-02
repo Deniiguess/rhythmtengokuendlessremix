@@ -4,6 +4,7 @@
 // For readability.
 #define gBouncyRoad ((struct BouncyRoadEngineData *)gCurrentEngineData)
 volatile u8 *miss_BR = (volatile u8 *)0x030002A4;
+volatile u8 *score1BR = (volatile u8 *)0x030002AA;
 
 enum BouncyBallState {
     /* 00 */ BOUNCY_BALL_STATE_DEFAULT,
@@ -502,6 +503,10 @@ void bouncy_road_cue_hit(struct Cue *cue, struct BouncyRoadCue *info, u32 presse
     }
 
     info->hit = TRUE;
+
+    if (*miss_BR == 0) {
+    *score1BR += 1;
+    }
 }
 
 

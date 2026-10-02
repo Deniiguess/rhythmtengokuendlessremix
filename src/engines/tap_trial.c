@@ -5,6 +5,8 @@ asm(".include \"include/gba.inc\""); // Temporary
 // For readability.
 #define gTapTrial ((struct TapTrialEngineData *)gCurrentEngineData)
 volatile u8 *miss_TT = (volatile u8 *)0x030002A4;
+volatile u8 *score1TT = (volatile u8 *)0x030002AA;
+volatile u8 *scorePalTimerTT = (volatile u8 *)0x030002AB;
 
 
 /* TAP TRIAL */
@@ -356,6 +358,10 @@ void tap_trial_cue_despawn(struct Cue *cue, struct TapTrialCue *info) {
 void tap_trial_cue_hit(struct Cue *cue, struct TapTrialCue *info, u32 pressed, u32 released) {
     func_0803e644();
     gTapTrial->unk_394 = 5;
+
+    if (*miss_TT == 0) {
+        *score1TT += 1;
+    }
 }
 
 void tap_trial_cue_barely(struct Cue *cue, struct TapTrialCue *info, u32 pressed, u32 released) {
@@ -365,6 +371,10 @@ void tap_trial_cue_barely(struct Cue *cue, struct TapTrialCue *info, u32 pressed
 
     gTapTrial->unk_20++;
     func_0803e420(0xc8);
+
+    if (*miss_TT == 0) {
+        *scorePalTimerTT = 11;
+    }
 }
 
 void tap_trial_cue_miss(struct Cue *cue, struct TapTrialCue *info) {

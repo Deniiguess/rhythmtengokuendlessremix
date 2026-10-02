@@ -3,6 +3,15 @@ asm(".syntax unified \n\
 .balign 4, 0 \n\
 \n\
 thumb_func_start ninja_bodyguard_cue_hit \n\
+LDR R3, =0x030002A4 \n\
+LDR R0, [R3] \n\
+CMP R0, 0x00 \n\
+BNE dont_inc_point \n\
+LDR R3, =0x030002AA \n\
+LDRB R0, [R3] \n\
+ADDS R0, 0x01 \n\
+STRB R0, [R3] \n\
+dont_inc_point: \n\
 /* 0803cd3c */ PUSH {R4-R7, LR} \n\
 /* 0803cd3e */ MOV R7, R8 @ Set R7 to R8 \n\
 /* 0803cd40 */ PUSH {R7} \n\

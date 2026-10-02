@@ -650,13 +650,14 @@ struct LevelData level_data_table[] = {
     /* REMIX_1 */ {
         /* Entry Scene   */ &scene_remix_1,
         /* Level Name    */ "エンドレスリミックス",
-        /* Level Desc.   */ "endless.",
+        /* Level Desc.   */ "endless.\n"
+                            "AGAIN",
         /* Level Icon    */ 22,
         /* Level Type    */ LEVEL_TYPE_REMIX,
         /* Epilogue GFX  */ epilogue_remix1_gfx_tables,
         /* Epilogue Text */ {
             /* TRY_AGAIN */ "今回のデキ ： 猫のおやつクラス",
-            /* OK        */ "ｉｄｋ ｙｏｕｒ ｓｃｏｒｅ",
+            /* OK        */ "that was hopefully good!",
             /* SUPERB    */ "今回のデキ ： なんと、 ディナークラス！！"
         }
     },

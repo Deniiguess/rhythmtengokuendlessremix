@@ -6,6 +6,8 @@
 #include "src/main.h"
 #include "riq_main_scene.h"
 
+#define BASE_X_SCORE 108
+
 // Scene Macros/Enums:
 
 
@@ -55,7 +57,9 @@ struct GameplaySceneData {
     u16 textButtonPressFilter;
     u16 textButtonReleaseFilter;
     s16 perfectSprite;
-    s16 ERMiss;
+    s16 ERScore1;
+    s16 ERScore2;
+    s16 ERScore3;
     u8  goingForPerfect;
     u8  assessPerfectInputs;
     u8  perfectFailed;

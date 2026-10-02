@@ -10,6 +10,7 @@
 // For readability.
 #define gFireworks ((struct FireworksEngineData *)gCurrentEngineData)
 volatile u8 *miss_FW = (volatile u8 *)0x030002A4;
+volatile u8 *score1FW = (volatile u8 *)0x030002AA;
 
 enum SpiritSparklerStatesEnum {
     SPIRIT_SPARKLER_STATE_0,
@@ -599,6 +600,10 @@ void fireworks_cue_hit(struct Cue *cue, struct FireworksCue *info, u32 pressed, 
 
     if ((gFireworks->patternTableNext == 19) || (gFireworks->patternTableNext == 42)) {
         play_sound(&s_f_hanabi_kansei_seqData);
+    }
+
+    if (*miss_FW == 0) {
+    *score1FW += 1;
     }
 }
 

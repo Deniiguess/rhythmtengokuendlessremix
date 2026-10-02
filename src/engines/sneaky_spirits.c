@@ -10,6 +10,7 @@
 // For readability.
 #define gSneakySpirits ((struct SneakySpiritsEngineData *)gCurrentEngineData)
 volatile u8 *miss_SS = (volatile u8 *)0x030002A4;
+volatile u8 *score1SS = (volatile u8 *)0x030002AA;
 
 
 /* SNEAKY SPIRITS */
@@ -384,6 +385,10 @@ void sneaky_spirits_cue_hit(struct Cue *cue, struct SneakySpiritsCue *info, u32 
     play_sound(&s_f_aim_just_hit_voice_seqData);
 
     sprite_create(gSpriteHandler, anim_sneaky_spirit_hit_effect, 0, 128, 90, 0x8792, 1, 0, 3);
+
+    if (*miss_SS == 0) {
+        *score1SS += 1;
+    }
 }
 
 

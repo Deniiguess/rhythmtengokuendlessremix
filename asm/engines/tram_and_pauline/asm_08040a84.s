@@ -3,6 +3,15 @@ asm(".syntax unified \n\
 .balign 4, 0 \n\
 \n\
 thumb_func_start tram_pauline_cue_hit \n\
+LDR R3, =0x030002A4 \n\
+LDR R0, [R3] \n\
+CMP R0, 0x00 \n\
+BNE dont_inc_point \n\
+LDR R3, =0x030002AA \n\
+LDRB R0, [R3] \n\
+ADDS R0, 0x01 \n\
+STRB R0, [R3] \n\
+dont_inc_point: \n\
 /* 08040a84 */ PUSH {R4, R5, LR} \n\
 /* 08040a86 */ SUB SP, 0xC \n\
 /* 08040a88 */ ADDS R4, R1, 0x0 @ Set R4 to R1 + 0x0 \n\

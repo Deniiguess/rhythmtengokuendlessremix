@@ -7,6 +7,8 @@ asm(".include \"include/gba.inc\""); // Temporary
 
 #define gClappyTrio ((struct ClappyTrioEngineData *)gCurrentEngineData)
 volatile u8 *miss_CT = (volatile u8 *)0x030002A4;
+volatile u8 *score1CT = (volatile u8 *)0x030002AA;
+volatile u8 *scorePalTimerCT = (volatile u8 *)0x030002AB;
 
 enum ClappyTrioBeatAnimationState {
     CLAPPY_TRIO_ANIM_STATE_BEAT,
@@ -184,10 +186,8 @@ void clappy_trio_cue_despawn(void) {
 }
 
 // Cue - Hit (https://decomp.me/scratch/UAIPR)
-#include "asm/engines/clappy_trio/asm_080308f4.s"
 
 // This function works as intended when the Makefile's NONMATCHING is set to 1
-/*
 void clappy_trio_cue_hit(struct Cue *cue, struct ClappyTrioCue *info, u32 pressed, u32 released) {
     struct Trio *trio = &gClappyTrio->trio;
 
@@ -206,8 +206,11 @@ void clappy_trio_cue_hit(struct Cue *cue, struct ClappyTrioCue *info, u32 presse
         palette_fade_in(get_current_mem_id(), 10, 8, 0x7fff, clappy_trio_bg_pal[1], BG_PALETTE_BUFFER(0x10));
         gClappyTrio->revertGrayscale = TRUE;
     }
+
+    if (*miss_CT == 0) {
+    *score1CT += 1;
+    }
 }
-*/
 
 void clappy_trio_cue_barely(struct Cue *cue, struct ClappyTrioCue *info, u32 pressed, u32 released) {
     struct Trio *trio = &gClappyTrio->trio;
@@ -218,6 +221,10 @@ void clappy_trio_cue_barely(struct Cue *cue, struct ClappyTrioCue *info, u32 pre
     play_sound(&s_tebyoushi_pati_seqData);
 
     beatscript_enable_loops();
+
+    if (*miss_CT == 0) {
+    *scorePalTimerCT = 11;
+    }
 }
 
 // Cue - Miss

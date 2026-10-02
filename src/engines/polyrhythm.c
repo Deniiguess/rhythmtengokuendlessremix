@@ -12,6 +12,7 @@ asm(".include \"include/gba.inc\""); // Temporary
 // For readability.
 #define gPolyrhythm ((struct PolyrhythmEngineData *)gCurrentEngineData)
 volatile u8 *miss_PR = (volatile u8 *)0x030002A4;
+volatile u8 *score1PR = (volatile u8 *)0x030002AA;
 
 enum BlockTypesEnum {
     BLOCK_TYPE_PLATFORM,
@@ -121,6 +122,10 @@ void polyrhythm_cue_hit(struct Cue *cue, struct PolyrhythmCue *info, u32 pressed
             gameplay_add_cue_result(0, 3, 0);
         }
     }
+
+    if (*miss_PR == 0) {
+        *score1PR += 1;
+    }
 }
 
 
@@ -135,6 +140,10 @@ void polyrhythm_cue_barely(struct Cue *cue, struct PolyrhythmCue *info, u32 pres
         if (pistonID >= 0) {
             gameplay_add_cue_result(0, 3, 0);
         }
+    }
+
+    if (*miss_PR == 0) {
+        *score1PR += 1;
     }
 }
 

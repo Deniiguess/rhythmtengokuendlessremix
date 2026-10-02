@@ -8,6 +8,18 @@ asm(".include \"include/gba.inc\"");//Temporary
 // For readability.
 #define gGameplay ((struct GameplaySceneData *)gCurrentSceneData)
 volatile u8 *hasMissedER = (volatile u8 *)0x030002A4;
+volatile u8 *hasMissedShkTimer = (volatile u8 *)0x030002A7;
+volatile u8 *scorePalTimer = (volatile u8 *)0x030002AB;
+volatile u8 *score1ER = (volatile u8 *)0x030002AA;
+volatile u8 *score2ER = (volatile u8 *)0x030002A9;
+volatile u8 *score3ER = (volatile u8 *)0x030002A8;
+
+volatile u16 *col_white = (volatile u16 *)0x03004F42;
+volatile u16 *col_gray = (volatile u16 *)0x03004F2E;
+
+const u16 SCORE_FADE_COLS[11] = {0x7FFF, 0x7BDF, 0x739F, 0x6F7F, 0x673F, 0x5EFF, 0x56BF, 0x4A5F, 0x3DFF, 0x2D7F, 0x001F};
+const u16 SCORE_FADE_COLS_DARK[11] = {0x6B5B, 0x673B, 0x631B, 0x5ADB, 0x56BB, 0x5E7B, 0x463B, 0x3DFB, 0x319B, 0x253B, 0x001B};
+const s8 SCORE_SHAKE[25] = {0, -1, 0, 1, 0, -1, 0, -1, 2, -2, 2, -2, 2, -2, 2, -2, 2, -3, 4, -4, 4, -4, 4, -4, 4};
 
 #define PAUSE_MENU_PALETTE_MOD 0x3DEF3DEF // Equivalent to RGB #7F7F7F
 
@@ -97,6 +109,10 @@ void gameplay_start_scene(void) {
     gGameplay->mercyEnabled = TRUE;
     gGameplay->forgivableMisses = 0;
     gGameplay->playInputsEnabled = FALSE;
+    *score1ER = 0;
+    *score2ER = 0;
+    *score3ER = 0;
+    *scorePalTimer = 0;
     gGameplay->buttonPressFilter = 0;
     gGameplay->buttonReleaseFilter = 0;
     gGameplay->assessIrrelevantInputs = TRUE;
@@ -198,12 +214,48 @@ void gameplay_update_scene(void) {
         }
     }
 
-    if (*hasMissedER == 1 ) {
+
+    if (*score1ER >= 10) {
+    	*score2ER += 1;
+     	*score1ER -= 10;
+    }
+
+    if (*score2ER >= 10) {
+    	*score3ER += 1;
+     	*score2ER -= 10;
+    }
+
+    if (*score3ER >= 10) {
+    	*score1ER = 9;
+     	*score2ER = 9;
+    	*score3ER = 9;
+    }
+
+    if (*hasMissedER == 0 ){
+    		if (*scorePalTimer != 0) {
+      		*scorePalTimer -= 1;
+        	*col_white = SCORE_FADE_COLS[*scorePalTimer];
+        	*col_gray = SCORE_FADE_COLS_DARK[*scorePalTimer];
+      	}
+    }
+    else if (*hasMissedER == 1 ) {
     	play_sound(&s_f_fail_perfect_seqData);
-     	sprite_set_visible(gSpriteHandler, gGameplay->ERMiss, TRUE);
-      sprite_set_anim(gSpriteHandler, gGameplay->ERMiss, miss_anim, 0, 1, 0x7f, 0);
       *hasMissedER = 2;
-	}
+      *col_white = SCORE_FADE_COLS[10];
+      *col_gray = SCORE_FADE_COLS_DARK[10];
+      *hasMissedShkTimer = 25;
+    }
+
+    if (*hasMissedShkTimer != 0) {
+    	*hasMissedShkTimer -= 1;
+     	sprite_set_x_y(gSpriteHandler, gGameplay->ERScore1, SCORE_SHAKE[*hasMissedShkTimer]+BASE_X_SCORE+16, 0);
+     	sprite_set_x_y(gSpriteHandler, gGameplay->ERScore2, SCORE_SHAKE[*hasMissedShkTimer]+BASE_X_SCORE+8, 0);
+     	sprite_set_x_y(gSpriteHandler, gGameplay->ERScore3, SCORE_SHAKE[*hasMissedShkTimer]+BASE_X_SCORE, 0);
+    }
+
+    sprite_set_anim_cel(gSpriteHandler, gGameplay->ERScore1, *score1ER);
+    sprite_set_anim_cel(gSpriteHandler, gGameplay->ERScore2, *score2ER);
+    sprite_set_anim_cel(gSpriteHandler, gGameplay->ERScore3, *score3ER);
 }
 
 
@@ -354,6 +406,9 @@ s32 gameplay_run_engine_event(const struct GameEngine *engine, s32 id) {
 // [func_080173c4] Enable Play Inputs
 void gameplay_inputs_enabled(u32 enable) {
     gGameplay->playInputsEnabled = enable;
+    sprite_set_visible(gSpriteHandler, gGameplay->ERScore1, TRUE);
+    sprite_set_visible(gSpriteHandler, gGameplay->ERScore2, TRUE);
+    sprite_set_visible(gSpriteHandler, gGameplay->ERScore3, TRUE);
 }
 
 
@@ -1196,7 +1251,12 @@ void gameplay_init_overlay(void) {
     gGameplay->skipTutorialSprite = sprite_create(gSpriteHandler, anim_gameplay_skip_icon, 0, 120, 80, 0, 0, 0, 0x8000);
     gGameplay->aButtonSprite = sprite_create(gSpriteHandler, anim_gameplay_text_button_black, 0, 64, 64, 0x64, 1, 0, 0x8000);
     gGameplay->perfectSprite = sprite_create(gSpriteHandler, anim_gameplay_perfect_icon, 0, 230, 10, 0x5A, 1, 0x7f, 0x8000);
-    gGameplay->ERMiss = sprite_create(gSpriteHandler, miss_anim, 0, 120, 80, 0, 0, 0, 0x8000);
+    gGameplay->ERScore1 = sprite_create(gSpriteHandler, anim_gameplay_numbers, 0, BASE_X_SCORE+16, 0, 0, 0, 0, 0);
+    gGameplay->ERScore2 = sprite_create(gSpriteHandler, anim_gameplay_numbers, 0, BASE_X_SCORE+8, 0, 0, 0, 0, 0);
+    gGameplay->ERScore3 = sprite_create(gSpriteHandler, anim_gameplay_numbers, 0, BASE_X_SCORE, 0, 0, 0, 0, 0);
+    sprite_set_visible(gSpriteHandler, gGameplay->ERScore1, FALSE);
+    sprite_set_visible(gSpriteHandler, gGameplay->ERScore2, FALSE);
+    sprite_set_visible(gSpriteHandler, gGameplay->ERScore3, FALSE);
     sprite_set_paused(gSpriteHandler, gGameplay->pauseSprite, 1);
     sprite_set_paused(gSpriteHandler, gGameplay->pauseOptionsSprite, 1);
     sprite_id_set_base_tile(gSpriteHandler, 16, 960);

@@ -3,6 +3,15 @@ asm(".syntax unified \n\
 .balign 4, 0 \n\
 \n\
 thumb_func_start mr_upbeat_cue_hit \n\
+LDR R1, =0x030002A4 \n\
+LDR R0, [R1] \n\
+CMP R0, 0x00 \n\
+BNE dont_inc_point \n\
+LDR R1, =0x030002AA \n\
+LDRB R0, [R1] \n\
+ADDS R0, 0x01 \n\
+STRB R0, [R1] \n\
+dont_inc_point: \n\
 /* 0803538c */ PUSH {R4, LR} \n\
 /* 0803538e */ LDR R0, =gCurrentEngineData \n\
 /* 08035390 */ LDR R4, [R0] \n\

@@ -11,7 +11,7 @@
 // For readability.
 #define gKarateMan ((struct KarateManEngineData *)gCurrentEngineData)
 volatile u8 *ptr = (volatile u8 *)0x030002A4;
-
+volatile u8 *score1KM = (volatile u8 *)0x030002AA;
 
 /* KARATE MAN */
 
@@ -411,6 +411,10 @@ void karate_cue_hit(struct Cue *cue, struct KarateManCue *data) {
     u32 isHigh;
     u32 useTheFace;
     u32 isHighBgFace = 0;
+
+    if (*ptr == 0) {
+    *score1KM += 1;
+    }
 
     isBgFaceVer = (karateMan->version == KARATE_VER_FACES);
     isHigh = FALSE;

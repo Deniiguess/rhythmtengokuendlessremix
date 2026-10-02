@@ -3,6 +3,8 @@
 // For readability.
 #define gSpaceDance ((struct SpaceDanceEngineData *)gCurrentEngineData)
 volatile u8 *miss_SD = (volatile u8 *)0x030002A4;
+volatile u8 *score1SD = (volatile u8 *)0x030002AA;
+volatile u8 *scorePalTimerSD = (volatile u8 *)0x030002AB;
 
 
 /* SPACE DANCE */
@@ -263,6 +265,10 @@ void space_dance_cue_hit(struct Cue *cue, struct SpaceDanceCue *info, u32 presse
     gameplay_set_input_buttons(0, 0);
 
     schedule_function_call(get_current_mem_id(), space_dance_reset_input_buttons, 0, ticks_to_frames(0x14));
+
+    if (*miss_SD == 0) {
+        *score1SD += 1;
+    }
 }
 
 // Space Gramps Raise Brow
@@ -284,6 +290,11 @@ void space_dance_gramps_frown(u32 arg0) {
 void space_dance_cue_barely(struct Cue *cue, struct SpaceDanceCue *info, u32 pressed, u32 released) {
     space_dance_cue_hit(cue, info, pressed, released);
     space_dance_gramps_raise_brow(0);
+
+    if (*miss_SD == 0) {
+        *scorePalTimerSD = 11;
+        *score1SD -= 1;
+    }
 }
 
 // Cue - Miss

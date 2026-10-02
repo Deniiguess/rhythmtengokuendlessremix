@@ -11,6 +11,7 @@ extern s32 (*fast_udivsi3)(s32, s32);
 // For readability.
 #define gSpaceball ((struct SpaceballEngineData *)gCurrentEngineData)
 volatile u8 *miss_SpB = (volatile u8 *)0x030002A4;
+volatile u8 *score1SpB = (volatile u8 *)0x030002AA;
 
 
 /* SPACEBALL */
@@ -416,6 +417,10 @@ void spaceball_cue_hit(struct Cue *cue, struct SpaceballCue *cueInfo, u32 presse
     batter->swingTimer = ticks_to_frames(0x0A);
     cueInfo->rotationSpeed = 8;
     cueInfo->state = SPACEBALL_CUE_STATE_HIT;
+
+    if (*miss_SpB == 0) {
+         *score1SpB += 1;
+    }
 }
 
 

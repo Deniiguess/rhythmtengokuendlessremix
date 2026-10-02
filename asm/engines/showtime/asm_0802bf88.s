@@ -3,6 +3,14 @@ asm(".syntax unified \n\
 .balign 4, 0 \n\
 \n\
 thumb_func_start showtime_cue_barely \n\
+LDR R3, =0x030002A4 \n\
+LDR R0, [R3] \n\
+CMP R0, 0x00 \n\
+BNE dont_set_barely \n\
+LDR R3, =0x030002AB \n\
+MOVS R0, 0x0B \n\
+STRB R0, [R3] \n\
+dont_set_barely: \n\
 /* 0802bf88 */ PUSH {R4-R6, LR} \n\
 /* 0802bf8a */ MOV R6, R8 @ Set R6 to R8 \n\
 /* 0802bf8c */ PUSH {R6} \n\
