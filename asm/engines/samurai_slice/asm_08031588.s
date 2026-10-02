@@ -3,6 +3,13 @@ asm(".syntax unified \n\
 .balign 4, 0 \n\
 \n\
 thumb_func_start samurai_slice_cue_barely \n\
+LDR R2, =0x030002A4 \n\
+LDR R0, [R2] \n\
+CMP R0, 0x00 \n\
+BNE dont_set_fail_check_SSb \n\
+MOVS R0, 0x01 \n\
+STR R0, [R2] \n\
+dont_set_fail_check_SSb: \n\
 /* 08031588 */ PUSH {R4-R6, LR} \n\
 /* 0803158a */ LDR R0, =gCurrentEngineData \n\
 /* 0803158c */ LDR R2, [R0] \n\

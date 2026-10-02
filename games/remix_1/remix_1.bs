@@ -24,6 +24,7 @@
 .include "games/samurai_slice/macros.inc"
 .include "games/rhythm_tweezers/macros.inc"
 .include "games/marching_orders/macros.inc"
+.include "games/mr_upbeat/macros.inc"
 
 
 
@@ -121,7 +122,7 @@ endstruct
 @ Remix 1 - Main Script
 
 script script_remix_1_main
-    set_tempo 119
+    set_tempo 120
     set_music_volume 256
     load_karate_man
     start_perfect_campaign
@@ -140,9 +141,8 @@ script script_remix_1_main
     rest_beats 8
     karate_man_clear_textbox
     set_byte 0x030002AC, 3
-    set_byte 0x030002A8, 0
     set_byte 0x030002A4, 0
-    call next_music_part
+    rest_beats 999
     call karate_man_cue_1
 
     call change_scene
@@ -151,29 +151,30 @@ script script_remix_1_main
     call change_scene
     call change_scene
 
-    mod_music_pitch 3072, 26976
-    mod_tempo 238, 28800
+		mod_music_pitch 2048, 28800
+    mod_tempo 240, 28800
+
     loop_start
     call change_scene
     loop_end
 
 return
+return
 
 script change_scene
 	if_eq INT8, 0x030002A4, 0
 
-	switch_random 13
+	switch_random 19
 				case 0
-        	if_eq INT8, 0x030002AC, 0
-         		goto change_scene
-          end_if
-          rest 6
-          load_bouncy_road
-          set_byte 0x030002AC, 0
-          rest 6
-          call next_music_part
-          goto bouncy_road_init
-        break
+       	if_eq INT8, 0x030002AC, 0
+       		goto change_scene
+	        end_if
+	        rest 6
+	        load_bouncy_road
+	        set_byte 0x030002AC, 0
+	        rest 6
+	        goto bouncy_road_init
+	        break
 				case 1
 					if_eq INT8, 0x030002AC, 1
          		goto change_scene
@@ -181,7 +182,6 @@ script change_scene
         	load_clappy_trio
          	set_byte 0x030002AC, 1
          	rest 12
-          call next_music_part
         	goto clappy_trio_init
         break
         case 2
@@ -191,7 +191,6 @@ script change_scene
         	load_fireworks
          	set_byte 0x030002AC, 2
          	rest 12
-          call next_music_part
         	goto fireworks_init
         break
         case 3
@@ -201,7 +200,6 @@ script change_scene
        		load_karate_man
          	set_byte 0x030002AC, 3
          	rest 12
-          call next_music_part
         	goto karate_man_init
         break
         case 4
@@ -211,7 +209,6 @@ script change_scene
        		load_marching_orders
          	set_byte 0x030002AC, 4
          	rest 12
-          call next_music_part
         	goto marching_orders_init
         break
         case 5
@@ -221,7 +218,6 @@ script change_scene
        		load_polyrhythm_remix
          	set_byte 0x030002AC, 5
          	rest 12
-          call next_music_part
         	goto polyrhythm_init
         break
         case 6
@@ -231,7 +227,6 @@ script change_scene
        		load_rhythm_tweezers
          	set_byte 0x030002AC, 6
          	rest 12
-          call next_music_part
         	goto rhythm_tweezers_init
         break
         case 7
@@ -241,7 +236,6 @@ script change_scene
        		load_showtime
          	set_byte 0x030002AC, 7
          	rest 12
-          call next_music_part
         	goto showtime_init
         break
         case 8
@@ -251,7 +245,6 @@ script change_scene
        		load_sick_beats
          	set_byte 0x030002AC, 8
          	rest 12
-          call next_music_part
         	goto sick_beats_init
         break
         case 9
@@ -261,7 +254,6 @@ script change_scene
        		load_sneaky_spirits_remix
           set_byte 0x030002AC, 9
          	rest 12
-          call next_music_part
         	goto sneaky_spirits_cue
         break
         case 10
@@ -271,7 +263,6 @@ script change_scene
       		load_space_dance
         	set_byte 0x030002AC, 10
          	rest 12
-          call next_music_part
         	goto space_dance_init
         break
         case 11
@@ -281,7 +272,6 @@ script change_scene
       		load_spaceball
         	set_byte 0x030002AC, 11
          	rest 12
-          call next_music_part
         	goto spaceball_init
         break
         case 12
@@ -291,8 +281,62 @@ script change_scene
         	load_tap_trial
          	set_byte 0x030002AC, 12
          	rest 12
-          call next_music_part
         	goto tap_trial_init
+        break
+        case 13
+        	if_eq INT8, 0x030002AC, 13
+         		goto change_scene
+         	end_if
+					load_mr_upbeat
+					set_byte 0x030002AC, 13
+					rest 12
+					goto mr_upbeat_cue
+				break
+				case 14
+					if_eq INT8, 0x030002AC, 14
+         		goto change_scene
+         	end_if
+        	load_tram_pauline_no_curtain
+         	set_byte 0x030002AC, 14
+         	rest 12
+        	goto tram_pauline_init
+        break
+        case 15
+        	if_eq INT8, 0x030002AC, 15
+         		goto change_scene
+         	end_if
+					load_samurai_slice_remix
+					set_byte 0x030002AC, 14
+					rest 12
+        	goto samurai_slice_cue
+				break
+				case 16
+					if_eq INT8, 0x030002AC, 16
+         		goto change_scene
+         	end_if
+        	load_ninja_bodyguard
+         	set_byte 0x030002AC, 16
+         	rest 12
+        	goto ninja_bodyguard_init
+				break
+				case 17
+					if_eq INT8, 0x030002AC, 17
+         		goto change_scene
+         	end_if
+        	load_rat_race
+         	disable_play_inputs
+         	set_byte 0x030002AC, 17
+         	rest 12
+        	goto rat_race_cue
+        break
+        case 18
+        	if_eq INT8, 0x030002AC, 18
+         		goto change_scene
+         	end_if
+        	load_toss_boys
+         	set_byte 0x030002AC, 18
+         	rest 12
+        	goto toss_boys_init
         break
         default
         	goto change_scene
@@ -303,61 +347,8 @@ script change_scene
   	goto end_game
 	end_if
 
-script next_music_part
-	add_byte 0x030002A8, 1
-	switch INT8, 0x030002A8
-		case 1
-			play_music L1_pat01_seqData
-		break
-		case 2
-			play_music L1_pat02_seqData
-		break
-		case 3
-			play_music L1_pat03_seqData
-		break
-		case 4
-			play_music L1_pat04_seqData
-		break
-		case 5
-			play_music L1_pat05_seqData
-		break
-		case 6
-			play_music L1_pat07_seqData
-		break
-		case 7
-			play_music L1_pat01_seqData
-		break
-		case 8
-			play_music L1_pat02_seqData
-		break
-		case 9
-			play_music L1_pat03_seqData
-		break
-		case 10
-			play_music L1_pat04_seqData
-		break
-		case 11
-			play_music L1_pat05_seqData
-		break
-		case 12
-			play_music L1_pat07_seqData
-		break
-		case 13
-			play_music L1_pat08_seqData
-		break
-		case 14
-			play_music L1_pat09_seqData
-			set_byte 0x030002A8, 0
-		break
-		default
-			play_music Lesson1_seqData
-		break
-		end_switch
-return
-
 script end_game
 		rest 12
-		call next_music_part
 		beat_anim
 		rest 24
     beat_anim
@@ -536,6 +527,51 @@ script tap_trial_init
 		break
 		case 4
 			goto tap_trial_cue_5
+		break
+	end_switch
+
+script tram_pauline_init
+	switch_random 4
+		case 0
+			goto tram_pauline_cue_1
+		break
+		case 1
+			goto tram_pauline_cue_2
+		break
+		case 2
+			goto tram_pauline_cue_3
+		break
+		case 3
+			goto tram_pauline_cue_4
+		break
+	end_switch
+
+script ninja_bodyguard_init
+	switch_random 4
+		case 0
+			goto ninja_bodyguard_cue_1
+		break
+		case 1
+			goto ninja_bodyguard_cue_2
+		break
+		case 2
+			goto ninja_bodyguard_cue_3
+		break
+		case 3
+			goto ninja_bodyguard_cue_4
+		break
+	end_switch
+
+script toss_boys_init
+	switch_random 3
+		case 0
+			goto toss_boys_cue_1
+		break
+		case 1
+			goto toss_boys_cue_2
+		break
+		case 2
+			goto toss_boys_cue_3
 		break
 	end_switch
 
@@ -2375,6 +2411,795 @@ script space_dance_punch
     play_sfx s_space_ikeo_punch_seqData
     rest 12
 return
+
+script mr_upbeat_cue
+		play_sfx_vol s_intro_one_seqData, 384
+    rest 12
+    mr_upbeat_event02
+    rest 12
+    play_sfx_vol s_intro_two_seqData, 384
+    rest 12
+    mr_upbeat_event02
+    rest 12
+    play_sfx_vol s_intro_three_seqData, 384
+    rest 12
+    mr_upbeat_event02
+    play_sfx_synced s_intro_four_seqData, 150, 384
+    rest 12
+    rest 12
+    mr_upbeat_event02
+    rest 12
+    mr_upbeat_event00 24
+    spawn_cue CUE_H_BEAT_TO_TEMPO
+    rest 24
+    mr_upbeat_event00 24
+    spawn_cue CUE_H_BEAT_TO_TEMPO
+    rest 24
+    mr_upbeat_event00 24
+    spawn_cue CUE_H_BEAT_TO_TEMPO
+    rest 24
+    mr_upbeat_event00 24
+    spawn_cue CUE_H_BEAT_TO_TEMPO
+    rest 24
+    mr_upbeat_event00 24
+    spawn_cue CUE_H_BEAT_TO_TEMPO
+    rest 24
+    mr_upbeat_event00 24
+    spawn_cue CUE_H_BEAT_TO_TEMPO
+    rest 24
+    mr_upbeat_event00 24
+    spawn_cue CUE_H_BEAT_TO_TEMPO
+    rest 24
+    mr_upbeat_event00 24
+    spawn_cue CUE_H_BEAT_TO_TEMPO
+    rest 24
+    mr_upbeat_event00 24
+    spawn_cue CUE_H_BEAT_TO_TEMPO
+    rest 24
+    mr_upbeat_event00 24
+    spawn_cue CUE_H_BEAT_TO_TEMPO
+    rest 24
+    mr_upbeat_event00 24
+    spawn_cue CUE_H_BEAT_TO_TEMPO
+    rest 24
+    if_eq INT8, 0x030002A4, 0
+    play_sfx_vol s_metro_tin_seqData, 256
+    end_if
+    rest 12
+return
+
+script tram_pauline_cue_1
+		beat_anim
+    rest 24
+    tram_pauline_event00 0
+    beat_anim
+    rest 24
+    tram_pauline_event01 0
+    spawn_cue CUE_TRAM
+    beat_anim
+    rest 24
+    tram_pauline_event00 1
+    beat_anim
+    rest 24
+    tram_pauline_event01 1
+    spawn_cue CUE_PAULINE
+    beat_anim
+    rest 24
+    beat_anim
+    rest 24
+    beat_anim
+    rest 24
+    tram_pauline_event00 1
+    tram_pauline_event00 0
+    beat_anim
+    rest 24
+    tram_pauline_event01 1
+    spawn_cue CUE_PAULINE
+    tram_pauline_event01 0
+    spawn_cue CUE_TRAM
+    beat_anim
+    rest 24
+    beat_anim
+    rest 24
+    tram_pauline_event01 1
+    spawn_cue CUE_PAULINE
+    tram_pauline_event01 0
+    spawn_cue CUE_TRAM
+    beat_anim
+    rest 24
+    beat_anim
+    rest 24
+    tram_pauline_event01 1
+    spawn_cue CUE_PAULINE
+    tram_pauline_event01 0
+    spawn_cue CUE_TRAM
+    beat_anim
+    rest 24
+    beat_anim
+    rest 24
+    beat_anim
+    rest 24
+    beat_anim
+    rest 12
+return
+
+script tram_pauline_cue_2
+		beat_anim
+    rest 24
+    tram_pauline_event00 1
+    beat_anim
+    rest 24
+    tram_pauline_event01 1
+    spawn_cue CUE_PAULINE
+    beat_anim
+    rest 24
+    tram_pauline_event00 0
+    beat_anim
+    rest 24
+    tram_pauline_event01 0
+    spawn_cue CUE_TRAM
+    beat_anim
+    rest 24
+    tram_pauline_event00 1
+    beat_anim
+    rest 24
+    tram_pauline_event01 1
+    spawn_cue CUE_PAULINE
+    tram_pauline_event01 0
+    spawn_cue CUE_TRAM
+    beat_anim
+    rest 24
+    beat_anim
+    rest 24
+    tram_pauline_event00 0
+    beat_anim
+    rest 24
+    tram_pauline_event01 0
+    spawn_cue CUE_TRAM
+    beat_anim
+    rest 24
+    tram_pauline_event00 1
+    beat_anim
+    rest 24
+    tram_pauline_event01 1
+    spawn_cue CUE_PAULINE
+    beat_anim
+    rest 24
+    beat_anim
+    rest 24
+    beat_anim
+    rest 24
+    beat_anim
+    rest 24
+    beat_anim
+    rest 12
+return
+
+script tram_pauline_cue_3
+		beat_anim
+    rest 24
+    beat_anim
+    tram_pauline_event00 1
+    tram_pauline_event00 0
+    rest 24
+    tram_pauline_event01 0
+    spawn_cue CUE_TRAM
+    tram_pauline_event01 1
+    spawn_cue CUE_PAULINE
+    beat_anim
+    rest 24
+    beat_anim
+    rest 24
+    beat_anim
+    rest 24
+    tram_pauline_event00 1
+    tram_pauline_event00 0
+    beat_anim
+    rest 24
+    tram_pauline_event01 0
+    spawn_cue CUE_TRAM
+    tram_pauline_event01 1
+    spawn_cue CUE_PAULINE
+    beat_anim
+    rest 24
+    beat_anim
+    rest 24
+    tram_pauline_event01 0
+    spawn_cue CUE_TRAM
+    beat_anim
+    rest 24
+    tram_pauline_event00 1
+    beat_anim
+    rest 24
+    tram_pauline_event01 1
+    spawn_cue CUE_PAULINE
+    beat_anim
+    rest 24
+    tram_pauline_event00 0
+    beat_anim
+    rest 24
+    tram_pauline_event01 0
+    spawn_cue CUE_TRAM
+    beat_anim
+    rest 24
+    tram_pauline_event00 1
+    beat_anim
+    rest 24
+    tram_pauline_event01 1
+    spawn_cue CUE_PAULINE
+    beat_anim
+    rest 24
+    beat_anim
+    rest 12
+return
+
+script tram_pauline_cue_4
+		beat_anim
+    rest 24
+    tram_pauline_event00 0
+    beat_anim
+    rest 24
+    tram_pauline_event01 0
+    spawn_cue CUE_TRAM
+    beat_anim
+    rest 24
+    beat_anim
+    rest 24
+    beat_anim
+    rest 24
+    tram_pauline_event00 1
+    beat_anim
+    rest 24
+    tram_pauline_event01 1
+    spawn_cue CUE_PAULINE
+    beat_anim
+    rest 24
+    beat_anim
+    rest 24
+    tram_pauline_event01 1
+    spawn_cue CUE_PAULINE
+    beat_anim
+    rest 24
+    tram_pauline_event00 0
+    beat_anim
+    rest 24
+    tram_pauline_event01 0
+    spawn_cue CUE_TRAM
+    beat_anim
+    rest 24
+    beat_anim
+    rest 24
+    tram_pauline_event00 0
+    tram_pauline_event00 1
+    beat_anim
+    rest 24
+    tram_pauline_event01 0
+    spawn_cue CUE_TRAM
+    tram_pauline_event01 1
+    spawn_cue CUE_PAULINE
+    beat_anim
+    rest 24
+    beat_anim
+    rest 24
+    beat_anim
+    rest 12
+return
+
+script samurai_slice_cue
+		switch_random 2
+		case 0
+			samurai_slice_event02 0
+	    beat_anim
+	    rest 24
+	    beat_anim
+	    rest 24
+	    beat_anim
+	    rest 24
+	    beat_anim
+	    rest 24
+	    beat_anim
+	    rest 24
+	    spawn_cue CUE_FIRST
+	    beat_anim
+	    rest 24
+	    beat_anim
+	    rest 24
+	    beat_anim
+	    rest 24
+		break
+		case 1
+			samurai_slice_event02 0
+	    beat_anim
+	    rest 24
+	    samurai_slice_event02 1
+	    beat_anim
+	    rest 24
+	    beat_anim
+	    rest 24
+	    beat_anim
+	    rest 24
+	    beat_anim
+	    rest 24
+	    spawn_cue CUE_FIRST
+	    beat_anim
+	    rest 24
+	    spawn_cue CUE_SECOND
+	    beat_anim
+	    rest 24
+	    beat_anim
+	    rest 24
+		break
+		end_switch
+
+		switch_random 2
+		case 0
+			samurai_slice_event02 2
+	    beat_anim
+	    rest 24
+	    samurai_slice_event02 3
+	    beat_anim
+	    rest 24
+	    beat_anim
+	    rest 24
+	    beat_anim
+	    rest 24
+	    beat_anim
+	    rest 24
+	    spawn_cue CUE_FIRST
+	    beat_anim
+	    rest 24
+	    spawn_cue CUE_SECOND
+	    beat_anim
+	    rest 24
+	    beat_anim
+	    rest 12
+		break
+		case 1
+			samurai_slice_event02 2
+	    beat_anim
+	    rest 24
+	    samurai_slice_event03 16
+	    samurai_slice_event02 3
+	    beat_anim
+	    rest 24
+	    beat_anim
+	    rest 24
+	    beat_anim
+	    rest 24
+	    beat_anim
+	    rest 24
+	    spawn_cue CUE_FIRST
+	    beat_anim
+	    rest 24
+	    spawn_cue CUE_SECOND
+	    beat_anim
+	    rest 24
+	    beat_anim
+	    rest 12
+		break
+		end_switch
+return
+
+script ninja_bodyguard_cue_1
+	ninja_bodyguard_event07 1
+  ninja_bodyguard_event0B 1
+  rest 24
+  rest 24
+  rest 24
+  rest 24
+  rest 6
+  rest 6
+  rest 6
+  rest 6
+  ninja_bodyguard_event08
+  rest 12
+  rest 12
+  rest 24
+  ninja_bodyguard_event09 TRUE
+  rest 24
+  ninja_bodyguard_event0C
+  rest 12
+  ninja_bodyguard_event05
+  ninja_bodyguard_event0D 1
+  ninja_bodyguard_event0B 0
+  rest 12
+  rest 24
+  rest 24
+  rest 24
+  rest 24
+  rest 12
+  rest 12
+  spawn_cue CUE_DEFAULT
+  rest 24
+  rest 12
+return
+
+script ninja_bodyguard_cue_2
+	ninja_bodyguard_event07 3
+  ninja_bodyguard_event0B 1
+  rest 24
+  rest 24
+  rest 24
+  ninja_bodyguard_event08
+  rest 24
+  ninja_bodyguard_event09 FALSE
+  rest 6
+  rest 6
+  rest 6
+  rest 6
+  ninja_bodyguard_event09 FALSE
+  rest 12
+  rest 12
+  ninja_bodyguard_event09 TRUE
+  rest 24
+  rest 24
+  ninja_bodyguard_event0C
+  rest 12
+  ninja_bodyguard_event05
+  ninja_bodyguard_event0D 1
+  ninja_bodyguard_event0B 0
+  rest 12
+  rest 24
+  rest 24
+  spawn_cue CUE_DEFAULT
+  rest 24
+  spawn_cue CUE_DEFAULT
+  rest 24
+  spawn_cue CUE_DEFAULT
+  rest 12
+  rest 12
+  rest 24
+  rest 12
+return
+
+script ninja_bodyguard_cue_3
+	ninja_bodyguard_event07 3
+  ninja_bodyguard_event0B 1
+  rest 24
+  rest 24
+  rest 24
+  rest 24
+  ninja_bodyguard_event08
+  rest 6
+  rest 6
+  rest 6
+  rest 6
+  ninja_bodyguard_event09 FALSE
+  rest 12
+  ninja_bodyguard_event09 FALSE
+  rest 12
+  ninja_bodyguard_event09 TRUE
+  rest 24
+  rest 24
+  ninja_bodyguard_event0C
+  rest 12
+  ninja_bodyguard_event05
+  ninja_bodyguard_event0D 1
+  ninja_bodyguard_event0B 0
+  rest 12
+  rest 24
+  rest 24
+  rest 12
+  rest 12
+  spawn_cue CUE_DEFAULT
+  rest 12
+  spawn_cue CUE_DEFAULT
+  rest 12
+  spawn_cue CUE_DEFAULT
+  rest 12
+  rest 12
+  rest 24
+  rest 12
+return
+
+script ninja_bodyguard_cue_4
+	ninja_bodyguard_event07 2
+  ninja_bodyguard_event0B 1
+  rest 24
+  rest 24
+  ninja_bodyguard_event08
+  rest 24
+  rest 12
+  ninja_bodyguard_event09 FALSE
+  rest 12
+  ninja_bodyguard_event09 TRUE
+  rest 6
+  rest 6
+  rest 6
+  rest 6
+  rest 12
+  rest 12
+  rest 24
+  rest 24
+  ninja_bodyguard_event0C
+  rest 12
+  ninja_bodyguard_event05
+  ninja_bodyguard_event0D 1
+  ninja_bodyguard_event0B 0
+  rest 12
+  rest 12
+  rest 24
+  spawn_cue CUE_DEFAULT
+  rest 12
+  spawn_cue CUE_DEFAULT
+  rest 12
+  rest 24
+  rest 12
+  rest 12
+  rest 12
+  rest 12
+  rest 24
+return
+
+script rat_race_cue
+	beat_anim
+  rest 24
+  beat_anim
+  rest 24
+  beat_anim
+  rest 24
+	rat_race_event12
+  rat_race_event09 1
+  spawn_cue CUE_STOP4
+  rest 24
+  enable_play_inputs
+  rat_race_event0D 0
+  rest 24
+  rat_race_event0D 1
+  rat_race_event05 1
+  beat_anim
+  rest 24
+  rat_race_event0D 2
+  rat_race_event05 2
+  rest 12
+  rest 4
+  rest 4
+  rat_race_event05 3
+  rest 4
+  rat_race_event05 4
+  rat_race_event0D 3
+  rat_race_event02 0
+  rat_race_event01 0
+  rest 24
+  beat_anim
+  rest 24
+  beat_anim
+  rest 24
+  beat_anim
+  rest 24
+  beat_anim
+  switch_random 2
+  case 0
+  	rest 24
+	  beat_anim
+	  rat_race_event0D 0
+	  rest 24
+	  rat_race_event0D 1
+	  rest 12
+	  rest 6
+	  rat_race_event05 5
+	  rest 6
+	  rat_race_event0D 2
+	  rat_race_event01 2
+	  spawn_cue CUE_DASH
+	  rest 12
+	  rest 6
+	  rat_race_event05 6
+	  rest 6
+	  rat_race_event05 0
+	  rat_race_event0D 4
+	  rat_race_event01 1
+	  rat_race_event02 1
+	  beat_anim
+	  rest 12
+  	break
+  case 1
+	  rat_race_event0D 0
+	  rest 24
+	  rat_race_event0D 1
+	  rest 12
+	  rest 6
+	  rat_race_event05 5
+	  rest 6
+	  rat_race_event0D 2
+	  rat_race_event01 2
+	  spawn_cue CUE_DASH
+	  rest 12
+	  rest 6
+	  rat_race_event05 6
+	  rest 6
+	  rat_race_event05 0
+	  rat_race_event0D 4
+	  rat_race_event01 1
+	  rat_race_event02 1
+	  beat_anim
+	  rest 24
+	  beat_anim
+		rest 12
+  	break
+  end_switch
+return
+
+script toss_boys_cue_1
+	beat_anim
+  rest 24
+  beat_anim
+  rest 24
+  toss_boys_event01 0x30140
+  beat_anim
+  rest 24
+  toss_boys_event02 0x300c9
+  spawn_cue CUE_TOSS_R
+  beat_anim
+  rest 24
+  toss_boys_event03 1
+  beat_anim
+  rest 24
+  toss_boys_event02 0x300a2
+  spawn_cue CUE_TOSS_B
+  beat_anim
+  rest 24
+  toss_boys_event03 13
+  beat_anim
+  rest 24
+  toss_boys_event02 0x300a1
+  spawn_cue CUE_TOSS_Y
+  beat_anim
+  rest 24
+  toss_boys_event03 22
+  beat_anim
+  rest 24
+  toss_boys_event02 0x300c8
+  spawn_cue CUE_TOSS_B
+  beat_anim
+  rest 24
+  toss_boys_event03 10
+  beat_anim
+  rest 24
+  toss_boys_event02 0x300a2
+  spawn_cue CUE_TOSS_R
+  beat_anim
+  rest 24
+  toss_boys_event03 4
+  beat_anim
+  rest 24
+  toss_boys_event02 0x00000
+  spawn_cue CUE_POP_Y
+  toss_boys_event05 50
+  beat_anim
+  rest 24
+  beat_anim
+  rest 24
+  toss_boys_event05 2
+  beat_anim
+  rest 12
+return
+
+script toss_boys_cue_2
+	beat_anim
+  rest 24
+  beat_anim
+  rest 24
+  toss_boys_event01 0x30140
+  beat_anim
+  rest 24
+  toss_boys_event02 0x300c9
+  spawn_cue CUE_TOSS_R
+  beat_anim
+  rest 24
+  toss_boys_event03 1
+  beat_anim
+  rest 24
+  toss_boys_event02 0x300c8
+  spawn_cue CUE_TOSS_B
+  beat_anim
+  rest 24
+  toss_boys_event03 10
+  beat_anim
+  rest 24
+  toss_boys_event02 0x300a2
+  spawn_cue CUE_TOSS_R
+  beat_anim
+  rest 24
+  toss_boys_event03 4
+  beat_anim
+  rest 24
+  toss_boys_event02 0x300a1
+  spawn_cue CUE_TOSS_Y
+  beat_anim
+  rest 24
+  toss_boys_event03 22
+  beat_anim
+  rest 24
+  toss_boys_event02 0x300ca
+  spawn_cue CUE_TOSS_B
+  beat_anim
+  rest 24
+  toss_boys_event03 13
+  beat_anim
+  rest 24
+  toss_boys_event02 0x00000
+  spawn_cue CUE_POP_Y
+  toss_boys_event05 50
+  beat_anim
+  rest 24
+  beat_anim
+  rest 24
+  toss_boys_event05 2
+  beat_anim
+  rest 12
+return
+
+script toss_boys_cue_3
+  beat_anim
+  rest 24
+  beat_anim
+  rest 24
+	toss_boys_event01 0x30142
+  beat_anim
+  rest 24
+  toss_boys_event02 0x300a0
+  spawn_cue CUE_TOSS_Y
+  beat_anim
+  rest 24
+  toss_boys_event03 19
+  beat_anim
+  rest 24
+  toss_boys_event02 0x300a1
+  spawn_cue CUE_TOSS_R
+  beat_anim
+  rest 24
+  toss_boys_event03 1
+  beat_anim
+  rest 24
+  toss_boys_event02 0x300c9
+  spawn_cue CUE_TOSS_B
+  toss_boys_event05 0
+  toss_boys_event05 1
+  toss_boys_event05 2
+  toss_boys_event05 17
+  toss_boys_event03 29
+  toss_boys_event06 1
+  beat_anim
+  rest 24
+  toss_boys_event03 16
+  beat_anim
+  rest 24
+  toss_boys_event02 0x18079
+  spawn_cue CUE_TOSS_B
+  beat_anim
+  rest 24
+  toss_boys_event03 17
+  no_op
+  toss_boys_event02 0x18079
+  spawn_cue CUE_TOSS_B
+  beat_anim
+  rest 24
+  toss_boys_event03 17
+  no_op
+  toss_boys_event02 0x48282
+  spawn_cue CUE_TOSS_B
+  beat_anim
+  rest 12
+  toss_boys_event05 0
+  toss_boys_event05 1
+  toss_boys_event05 2
+  rest 12
+  toss_boys_event07
+  toss_boys_event03 15
+  beat_anim
+  rest 24
+  beat_anim
+  rest 24
+  toss_boys_event02 0x00000
+  spawn_cue CUE_POP_Y
+  toss_boys_event05 50
+  beat_anim
+  rest 24
+  beat_anim
+  rest 12
+return
+
 
 
 .end

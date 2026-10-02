@@ -5127,237 +5127,41 @@
             "sample": "sample_962.wav",
             "pitch": "C5"
         },
-                {
-            "sample": "chunk_1.wav",
-            "pitch": "C5"
+        {
+            "sample": "endlessGba_slap_bass_A2.wav",
+            "pitch": "A2",
+            "loop": [
+                18352,
+                20692
+            ]
         },
         {
-            "sample": "chunk_2.wav",
-            "pitch": "C5"
+            "sample": "endlessGba_synth1_A5.wav",
+            "pitch": "A5",
+            "loop": [
+                19784,
+                25074
+            ]
         },
         {
-            "sample": "chunk_3.wav",
-            "pitch": "C5"
+            "sample": "endlessGBA_squareDrop.wav",
+            "pitch": "C7",
+            "loop": [
+                1777,
+                2579
+            ]
         },
         {
-            "sample": "chunk_4.wav",
-            "pitch": "C5"
+            "sample": "sample_087rev.wav",
+            "pitch": "F5"
         },
         {
-            "sample": "chunk_5.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_6.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_7.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_8.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_9.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_10.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_11.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_12.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_13.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_14.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_15.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_16.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_17.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_18.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_19.wav",
-            "pitch": "C5"
-        },
-                {
-            "sample": "chunk_20.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_21.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_22.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_23.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_24.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_25.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_26.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_27.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_28.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_29.wav",
-            "pitch": "C5"
-        },
-                {
-            "sample": "chunk_30.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_31.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_32.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_33.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_34.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_35.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_36.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_37.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_38.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_39.wav",
-            "pitch": "C5"
-        },
-                {
-            "sample": "chunk_40.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_41.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_42.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_43.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_44.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_45.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_46.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_47.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_48.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_49.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_50.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_51.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_52.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_53.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_54.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_55.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_56.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_57.wav",
-            "pitch": "C5"
-        },
-        {
-            "sample": "chunk_58.wav",
-            "pitch": "C5"
+            "sample": "endlessGBA_squareWave.wav",
+            "pitch": "C7",
+            "loop": [
+                1726,
+                5323
+            ]
         }
     ]
 }

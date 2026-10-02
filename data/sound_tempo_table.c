@@ -59,7 +59,7 @@ struct TempoTable sound_tempo_table[] = {
     { &s_uma_bgm3_seqData, 155 },
     { &s_uma_bgm4_seqData, 160 },
     { &s_mitubati_seqData, 160 },
-    { &Lesson1_seqData, 119 },
+    { &Lesson1_seqData, 150 },
     { &L1_pat01_seqData, 119 },
     { &L1_pat02_seqData, 119 },
     { &L1_pat03_seqData, 119 },

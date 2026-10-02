@@ -3,6 +3,13 @@ asm(".syntax unified \n\
 .balign 4, 0 \n\
 \n\
 thumb_func_start toss_boys_cue_miss \n\
+LDR R2, =0x030002A4 \n\
+LDR R3, [R2] \n\
+CMP R3, 0x00 \n\
+BNE dont_set_fail_check_SSb \n\
+MOVS R3, 0x01 \n\
+STR R3, [R2] \n\
+dont_set_fail_check_SSb: \n\
 /* 0803f7cc */ PUSH {R4-R7, LR} \n\
 /* 0803f7ce */ MOV R7, R10 @ Set R7 to R10 \n\
 /* 0803f7d0 */ MOV R6, R9 @ Set R6 to R9 \n\
